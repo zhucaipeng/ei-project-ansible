@@ -1,0 +1,70 @@
+- block:
+  - name: set p1_redhat6_nodes
+    shell:
+      cmd: "echo [p1_redhat6_nodes] > {{ inventory }}/p1_redhat6_hosts && {{ P1_REDHAT6_LIST }} >> {{ inventory }}/p1_redhat6_hosts"
+
+  - name: set p1_redhat7_nodes
+    shell:
+      cmd: "echo [p1_redhat7_nodes] > {{ inventory }}/p1_redhat7_hosts && {{ P1_REDHAT7_LIST }} >> {{ inventory }}/p1_redhat7_hosts"
+
+  - name: set p1_sles_x86_nodes
+    shell:
+      cmd: "echo [p1_sles_x86_nodes] > {{ inventory }}/p1_sles_x86_hosts && {{ P1_SLES_X86_LIST }} >> {{ inventory }}/p1_sles_x86_hosts"
+
+  - name: set p1_sles_ppc64_nodes
+    shell:
+      cmd: "echo [p1_sles_ppc64_nodes] > {{ inventory }}/p1_sles_ppc64_hosts && {{ P1_SLES_PPC64_LIST }} >> {{ inventory }}/p1_sles_ppc64_hosts"
+
+  - name: set p3_redhat6_nodes
+    shell:
+      cmd: "echo [p3_redhat6_nodes] > {{ inventory }}/p3_redhat6_hosts && {{ P3_REDHAT6_LIST }} >> {{ inventory }}/p3_redhat6_hosts"
+
+  - name: set p3_redhat7_nodes
+    shell:
+      cmd: "echo [p3_redhat7_nodes] > {{ inventory }}/p3_redhat7_hosts && {{ P3_REDHAT7_LIST }} >> {{ inventory }}/p3_redhat7_hosts"
+
+  - name: set p3_sles_x86_nodes
+    shell:
+      cmd: "echo [p3_sles_x86_nodes] > {{ inventory }}/p3_sles_x86_hosts && {{ P3_SLES_X86_LIST }} >> {{ inventory }}/p3_sles_x86_hosts"
+
+  - name: set p3_sles_ppc64_nodes
+    shell:
+      cmd: "echo [p3_sles_ppc64_nodes] > {{ inventory }}/p3_sles_ppc64_hosts && {{ P3_SLES_PPC64_LIST }} >> {{ inventory }}/p3_sles_ppc64_hosts"
+
+  - name: set p5_redhat6_nodes
+    shell:
+      cmd: "echo [p5_redhat6_nodes] > {{ inventory }}/p5_redhat6_hosts && {{ P5_REDHAT6_LIST }} >> {{ inventory }}/p5_redhat6_hosts"
+
+  - name: set p5_redhat7_nodes
+    shell:
+      cmd: "echo [p5_redhat7_nodes] > {{ inventory }}/p5_redhat7_hosts && {{ P5_REDHAT7_LIST }} >> {{ inventory }}/p5_redhat7_hosts"
+
+  - name: set p5_sles_x86_nodes
+    shell:
+      cmd: "echo [p5_sles_x86_nodes] > {{ inventory }}/p5_sles_x86_hosts && {{ P5_SLES_X86_LIST }} >> {{ inventory }}/p5_sles_x86_hosts"
+
+  - name: set p5_sles_ppc64_nodes
+    shell:
+      cmd: "echo [p5_sles_ppc64_nodes] > {{ inventory }}/p5_sles_ppc64_hosts && {{ P5_SLES_PPC64_LIST }} >> {{ inventory }}/p5_sles_ppc64_hosts"
+
+  - name: set z1_redhat6_nodes
+    shell:
+      cmd: "echo [z1_redhat6_nodes] > {{ inventory }}/z1_redhat6_hosts && {{ Z1_REDHAT6_LIST }} >> {{ inventory }}/z1_redhat6_hosts"
+
+  - name: set z1_redhat7_nodes
+    shell:
+      cmd: "echo [z1_redhat7_nodes] > {{ inventory }}/z1_redhat7_hosts && {{ Z1_REDHAT7_LIST }} >> {{ inventory }}/z1_redhat7_hosts"
+
+  - name: set z1_sles_x86_nodes
+    shell:
+      cmd: "echo [z1_sles_x86_nodes] > {{ inventory }}/z1_sles_x86_hosts && {{ Z1_SLES_X86_LIST }} >> {{ inventory }}/z1_sles_x86_hosts"
+
+  - name: set z1_sles_ppc64_nodes
+    shell:
+      cmd: "echo [z1_sles_ppc64_nodes] > {{ inventory }}/z1_sles_ppc64_hosts && {{ Z1_SLES_PPC64_LIST }} >> {{ inventory }}/z1_sles_ppc64_hosts"
+
+  - name: set s_redhat7_nodes
+    shell:
+      cmd: "echo [s_redhat7_nodes] > {{ inventory }}/s_redhat7_hosts && {{ S_REDHAT7_LIST }} >> {{ inventory }}/s_redhat7_hosts"
+
+  when: inventory_hostname in groups['cws_nodes']                                                            

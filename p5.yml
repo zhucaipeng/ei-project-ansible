@@ -1,0 +1,14 @@
+---
+- name: update p1 and s nodes
+  hosts: cws_nodes,p5_*
+  gather_facts: false
+  vars_prompt:
+    - name: EMAIL
+      prompt: "what is your ftp3 username"
+      private: no
+
+    - name: PW
+      prompt: "what is your ftp3 password"
+      private: yes
+  roles:
+    - { role: p5_role, tags: ['p5'] }

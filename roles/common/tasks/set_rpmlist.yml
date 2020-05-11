@@ -1,0 +1,19 @@
+- name: set rpmlist
+  become_user: root
+  shell:
+    chdir: "{{ BASE_DIR }}/roles/common/templates"
+    cmd: "/usr/bin/sh set_rpmlist.sh {{ RPM_PATH }} {{ RPM_LIST_PATH}}"
+  when: inventory_hostname in groups['cws_nodes']
+
+- name: set facts.d directory
+  file:
+    path: "{{ RPM_LIST_PATH }}"
+    state: directory
+    recurse: yes
+  changed_when: false
+
+- name: rsync rpmlist to node
+  copy:
+    src: "{{ RPM_LIST_PATH }}/custom.fact"
+    dest: "{{ RPM_LIST_PATH }}"
+  changed_when: false

@@ -1,0 +1,13 @@
+- name: download rpm from ftp3
+  become_user: root
+  shell:
+    chdir: "{{ BASE_DIR }}/roles/common/templates"
+    cmd: "/usr/bin/sh download.sh {{ EMAIL }} {{ PW }} {{ SN }} {{ DL }} {{ RPM_PATH }}"
+  when: inventory_hostname in groups['cws_nodes']
+  register: result
+
+- name: fail the play if the previous command did not succeed
+  fail:
+    msg: download rpms did not succeed
+  when: inventory_hostname in groups['cws_nodes']
+  failed_when: result.rc != 0

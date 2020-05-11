@@ -1,0 +1,13 @@
+---
+# handlers file for roles/p3_role
+- name: createrepo_itops_redhat7
+  shell:
+    chdir: "{{ RH7_ITOPS_REPO }}"
+    cmd: createrepo .
+  when: inventory_hostname in groups['p3_reposync_nodes']
+
+- name: createrepo_redhat6
+  shell:
+    chdir: "{{ RH6_REPO }}"
+    cmd: createrepo .
+  when: inventory_hostname in groups['p3_reposync_nodes']

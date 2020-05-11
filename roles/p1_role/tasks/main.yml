@@ -1,0 +1,98 @@
+---
+# tasks file for roles/p1_role
+
+- name: rsync_s_redhat7_repo
+  copy:
+    src: "{{ RPM_PATH }}/redhat7/"
+    dest: "{{ RH7_S_REPO }}"
+    owner: root
+    group: root
+    mode: 0664
+  when: inventory_hostname in groups['s_reposync_nodes']
+  notify:
+    - s_sync
+
+- name: rsync_itops_redhat7_repo
+  copy:
+    src: "{{ RPM_PATH }}/redhat7/"
+    dest: "{{ RH7_ITOPS_REPO }}"
+    owner: root
+    group: root
+    mode: 0775
+  when: inventory_hostname in groups['p1_reposync_nodes']
+  notify:
+    - createrepo_itops_redhat7
+
+- name: rsync_redhat6_repo
+  copy:
+    src: "{{ RPM_PATH }}/redhat6/"
+    dest: "{{ RH6_REPO }}"
+    owner: root 
+    group: root
+    mode: 0775
+  when: inventory_hostname in groups['p1_reposync_nodes']
+  notify:
+    - createrepo_redhat6
+
+- meta: flush_handlers
+
+- name: rsync_x86_suse_repo
+  copy:
+    src: "{{ RPM_PATH }}/sles/x86_64/"
+    dest: "{{ SUSE_X86_REPO }}"
+    owner: root
+    group: root
+    mode: 0775
+  when: inventory_hostname in groups['p1_reposync_nodes']
+
+- name: rsync_ppc64_suse_repo
+  copy:
+    src: "{{ RPM_PATH }}/sles/ppc64/"
+    dest: "{{ SUSE_PPC64_REPO }}"
+    owner: root
+    group: root
+    mode: 0775
+  when: inventory_hostname in groups['p1_reposync_nodes']
+
+- name: fact
+  setup:
+    gather_subset:
+      - 'all'
+
+- name: update_s_and_itops_redhat7
+  yum:
+    name: "{{ ansible_local.custom.packages.redhat7_packages }}"
+    state: latest
+    update_only: yes
+    update_cache: yes
+  when:
+    - inventory_hostname in groups['s_redhat7_nodes'] or inventory_hostname in groups['p1_redhat7_nodes']
+    - ansible_local.custom.packages.redhat7_packages is defined
+
+- name: update_redhat6
+  yum:
+    name: "{{ ansible_local.custom.packages.redhat6_packages }}"
+    state: latest
+    update_only: yes
+    update_cache: yes
+  when:
+    - inventory_hostname in groups['p1_redhat6_nodes']
+    - ansible_local.custom.packages.redhat6_packages is defined
+
+- name: update_x86_suse
+  zypper:
+    name: "{{ ansible_local.custom.packages.sles_x86_packages }}"
+    state: latest
+    update_cache: yes
+  when:
+    - inventory_hostname in groups['p1_sles_x86_nodes']
+    - ansible_local.custom.packages.sles_x86_packages is defined
+
+- name: update_ppc64_suse
+  zypper:
+    name: "{{ ansible_local.custom.packages.sles_ppc64_packages }}"
+    state: latest
+    update_cache: yes
+  when:
+    - inventory_hostname in groups['p1_sles_ppc64_nodes']
+    - ansible_local.custom.packages.sles_ppc64_packages is defined

@@ -1,0 +1,19 @@
+---
+Updating rpm packages is the most numerous type of CSR in ei project.There are many manual operations in the whole process,involving thousands of OS nodes and four different kinds of OS.So it's very necessary to automate the whole process.There are two ways to realize this,ansible and script.
+
+This is the ansible version to realize the whole process. Download,rsync and update rpms in ei project and in all region.It has the following characteristics:
+1).It's suitable for RHEL6,RHEL7,sles.x86_64 and sles.ppc64.
+2).Several kinds of packages can be updated at the same time.
+3).Dynamically update host list.
+4).Just download and update the package which is actually installed in our environment.
+5).One button updating.
+
+usage:
+1).Confirm ansible.cfg and each variable in common roles at the first time.
+2).Input the servicenow.list by entire rpm name according to CSR.All the analysis,matching and upgrading are left to ansible.
+3).Run the entry file: [p1|p3|p5|z1].yml on corresponding cws node one region one day:
+		
+	ansible-playbook p1.yml
+	ansible-playbook p3.yml
+	ansible-playbook p5.yml
+	ansible-playbook z1.yml

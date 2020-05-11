@@ -1,0 +1,19 @@
+---
+# handlers file for roles/p1_role
+- name: s_sync
+  shell:
+    chdir: "{{ RH7_S_REPO }}"
+    cmd: createrepo . && /usr/local/bin/repoSyncToIC $PWD
+  when: inventory_hostname in groups['s_reposync_nodes']
+
+- name: createrepo_itops_redhat7
+  shell:
+    chdir: "{{ RH7_ITOPS_REPO }}"
+    cmd: createrepo .
+  when: inventory_hostname in groups['p1_reposync_nodes']
+
+- name: createrepo_redhat6
+  shell:
+    chdir: "{{ RH6_REPO }}"
+    cmd: createrepo .
+  when: inventory_hostname in groups['p1_reposync_nodes']

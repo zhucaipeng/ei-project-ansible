@@ -1,0 +1,38 @@
+---
+# vars file for roles/common
+
+BASE_DIR: "/home/ansible/playbooks"
+inventory: "{{ BASE_DIR }}/inventory"
+
+SN: "{{ BASE_DIR }}/servicenow.list"
+DL: "{{ BASE_DIR }}/download.list"
+RPM_PATH: "/tmp/rpms"
+RPM_LIST_PATH: "/etc/ansible/facts.d"
+
+RH6_REPO: "/fs/system/images/redhat/62/latest/rhel-6-server-rpms/Packages/"
+RH7_ITOPS_REPO: "/fs/system/images/redhat/72/latest/rhel-7-server-rpms/Packages/"
+RH7_S_REPO: "/repo/os/rhel/7/x86_64/updates/2019_04/"
+SUSE_X86_REPO: "/fs/system/images/sles/sles11/updates/x86_64Master11-SP4/"
+SUSE_PPC64_REPO: "/fs/system/images/sles/sles11/updates/ppc64Master11-SP4/"
+
+P1_SLES_X86_LIST: "lssys -qe oslevel==*sles*x86* realm==*.p1 nodestatus!=BAD"
+P1_SLES_PPC64_LIST: "lssys -qe oslevel==*sles*ppc64* realm==*.p1 nodestatus!=BAD"
+P1_REDHAT6_LIST: "lssys -qe oslevel==*rh6* realm==*.p1 nodestatus!=BAD"
+P1_REDHAT7_LIST: "lssys -qe oslevel==*rh7* realm==*.p1 nodestatus!=BAD"
+
+P3_SLES_X86_LIST: "lssys -qe oslevel==*sles*x86* realm==*.p3 nodestatus!=BAD"
+P3_SLES_PPC64_LIST: "lssys -qe oslevel==*sles*ppc64* realm==*.p3 nodestatus!=BAD"
+P3_REDHAT6_LIST: "lssys -qe oslevel==*rh6* realm==*.p3 nodestatus!=BAD"
+P3_REDHAT7_LIST: "lssys -qe oslevel==*rh7* realm==*.p3 nodestatus!=BAD"
+
+P5_SLES_X86_LIST: "lssys -qe oslevel==*sles*x86* realm==*.p5 nodestatus!=BAD"
+P5_SLES_PPC64_LIST: "lssys -qe oslevel==*sles*ppc64* realm==*.p5 nodestatus!=BAD"
+P5_REDHAT6_LIST: "lssys -qe oslevel==*rh6* realm==*.p5 nodestatus!=BAD"
+P5_REDHAT7_LIST: "lssys -qe oslevel==*rh7* realm==*.p5 nodestatus!=BAD"
+
+Z1_SLES_X86_LIST: "lssys -qe oslevel==*sles*x86* realm==*.p1 nodestatus!=BAD"
+Z1_SLES_PPC64_LIST: "lssys -qe oslevel==*sles*ppc64* realm==*.z1 nodestatus!=BAD"
+Z1_REDHAT6_LIST: "lssys -qe oslevel==*rh6* realm==*.z1 nodestatus!=BAD"
+Z1_REDHAT7_LIST: "lssys -qe oslevel==*rh7* realm==*.z1 nodestatus!=BAD"
+
+S_REDHAT7_LIST: "lssys -qe oslevel==*rh7* eihostname==softlayer nodestatus!=BAD"

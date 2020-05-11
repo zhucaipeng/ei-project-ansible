@@ -1,0 +1,79 @@
+---
+# tasks file for roles/p3_role
+
+- name: rsync_itops_redhat7_repo
+  copy:
+    src: "{{ RPM_PATH }}/redhat7/"
+    dest: "{{ RH7_ITOPS_REPO }}"
+    owner: root
+    group: root
+    mode: 0775
+  when: inventory_hostname in groups['p3_reposync_nodes']
+  notify:
+    - createrepo_itops_redhat7
+    
+- name: rsync_redhat6_repo
+  copy:
+    src: "{{ RPM_PATH }}/redhat6/"
+    dest: "{{ RH6_REPO }}"
+    owner: root 
+    group: root
+    mode: 0775
+  when: inventory_hostname in groups['p3_reposync_nodes']
+  notify:
+    - createrepo_redhat6
+
+- meta: flush_handlers
+
+- name: rsync_x86_suse_repo
+  copy:
+    src: "{{ RPM_PATH }}/sles/x86_64/"
+    dest: "{{ SUSE_X86_REPO }}"
+    owner: root
+    group: root
+    mode: 0775
+  when: inventory_hostname in groups['p3_reposync_nodes']
+
+- name: rsync_ppc64_suse_repo
+  copy:
+    src: "{{ RPM_PATH }}/sles/ppc64/"
+    dest: "{{ SUSE_PPC64_REPO }}"
+    owner: root
+    group: root
+    mode: 0775
+  when: inventory_hostname in groups['p1_reposync_nodes']
+
+- name: fact
+  setup:
+    gather_subset:
+      - 'all'
+
+- name: update_itops_redhat7
+  yum:
+    name: "{{ ansible_local.custom.packages.redhat7_packages }}"
+    state: latest
+    update_only: yes
+    update_cache: yes
+  when: inventory_hostname in groups['p1_redhat7_nodes']
+
+- name: update_redhat6
+  yum:
+    name: "{{ ansible_local.custom.packages.redhat6_packages }}"
+    state: latest
+    update_only: yes
+    update_cache: yes
+  when: inventory_hostname in groups['p3_redhat6_nodes']
+
+- name: update_x86_suse
+  zypper:
+    name: "{{ ansible_local.custom.packages.sles_x86_packages }}"
+    state: latest
+    update_cache: yes
+  when: inventory_hostname in groups['p3_sles_x86_nodes']
+
+- name: update_ppc64_suse
+  zypper:
+    name: "{{ ansible_local.custom.packages.sles_ppc64_packages }}"
+    state: latest
+    update_cache: yes
+  when: inventory_hostname in groups['p3_sles_ppc64_nodes']

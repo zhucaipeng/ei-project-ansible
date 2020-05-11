@@ -1,0 +1,11 @@
+---
+# tasks file for roles/common
+
+- name: include download_rpm.yml
+  include: download_rpm.yml
+
+- name: include set_rpmlist.yml
+  include: set_rpmlist.yml
+
+- name: include set_hosts.yml
+  include: set_hosts.yml

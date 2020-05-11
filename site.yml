@@ -1,0 +1,24 @@
+---
+- name: update for p1 and s plex nodes
+  hosts: cws_nodes,p1_*,s_*
+  gather_facts: false
+  roles:
+    - { role: p1_role, tags: ['p1'] }
+
+- name: update for p3 nodes
+  hosts: cws_nodes,p3_*
+  gather_facts: false
+  roles:
+    - { role: p3_role, tags: ['p3'] }
+
+- name: update for p5 nodes
+  hosts: cws_nodes,p5_*
+  gather_facts: false
+  roles:
+    - { role: p5_role, tags: ['p5'] }
+
+- name: update for z1 nodes
+  hosts: cws_nodes,z1_*
+  gather_facts: false
+  roles:
+    - { role: z1_role, tags: ['z1'] }
